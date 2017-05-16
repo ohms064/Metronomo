@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MusicTempo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tempo_fragment_title">Tempo</string>
+    <string name="list_fragment_title">List</string>
+    <string name="list_add">Agregar</string>
+    <string name="list_delete">Borrar</string>
+</resources>
