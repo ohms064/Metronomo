@@ -4,7 +4,23 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tempo_fragment_title">Tempo</string>
+
     <string name="list_fragment_title">List</string>
     <string name="list_add">Agregar</string>
     <string name="list_delete">Borrar</string>
+
+    <string name="tempo_name">Nombre</string>
+    <string name="tempo_value">Tiempo</string>
+    <string name="tempo_save_button">Aceptar</string>
+    <string name="tempo_begin_pause">Iniciar</string>
+    <string name="tempo_begin_pause_description">Inciar o Pausar</string>
+    <string name="tempo_menu_save">Guardar</string>
+    <string name="tempo_note">Nota</string>
+    <string name="tempo_error">No se permiten valores menores o iguales a cero</string>
+
+    <string name="note_quarter">Un cuarto</string>
+    <string name="note_octave">Octava</string>
+    <string name="note_full">Completa</string>
+    <string name="note_half">Media</string>
+    <string name="tempo_duration">Duración</string>
 </resources>

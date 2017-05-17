@@ -1,28 +1,46 @@
 package development.oms.com.musictempo.model;
 
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import development.oms.com.musictempo.metronome.NoteEnum;
 
 /**
  * Created by Omar on 15/05/2017.
  */
 
 public class TempoModel implements Parcelable{
-    private float tempo;
+    private long tempo, duration;
     private String title;
+    private int id;
+    private NoteEnum note;
 
-    public TempoModel(Integer tempo, String title) {
-        this.tempo = tempo;
-        this.title = title;
-    }
+    private static final String TEMPO = "tempo", TITLE = "title", ID = "id", DURATION = "duration", NOTE = "note";
 
     public TempoModel() {
-
+        tempo = 0;
+        title = "";
+        id = -1;
+        duration = 5000;
+        note = NoteEnum.QUARTER;
     }
 
-    protected TempoModel(Parcel in) {
-        title = in.readString();
-        tempo = in.readInt();
+    public TempoModel(int id){
+        this.id = id;
+        tempo = 0;
+        title = "";
+        duration = 5000;
+        note = NoteEnum.QUARTER;
+    }
+
+    private TempoModel(Parcel in) {
+        Bundle args = in.readBundle(getClass().getClassLoader());
+        title = args.getString(TITLE);
+        tempo = args.getLong(TEMPO);
+        id = args.getInt(ID);
+        duration = args.getLong(DURATION);
+        note = (NoteEnum) args.getSerializable(NOTE);
     }
 
     public static final Creator<TempoModel> CREATOR = new Creator<TempoModel>() {
@@ -37,11 +55,11 @@ public class TempoModel implements Parcelable{
         }
     };
 
-    public Float getTempo() {
+    public Long getTempo() {
         return tempo;
     }
 
-    public void setTempo(float tempo) {
+    public void setTempo(Long tempo) {
         this.tempo = tempo;
     }
 
@@ -60,9 +78,43 @@ public class TempoModel implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
-        dest.writeFloat(tempo);
+        Bundle args = new Bundle();
+        args.putString(TITLE, title);
+        args.putLong(TEMPO, tempo);
+        args.putSerializable(NOTE, note);
+        args.putInt(ID, id);
+        args.putLong(DURATION, duration);
+        dest.writeBundle(args);
     }
 
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public NoteEnum getNote() {
+        return note;
+    }
+
+    public void setNote(NoteEnum note) {
+        if(note == null){
+            this.note = NoteEnum.QUARTER;
+        }
+        this.note = note;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public long getDurationInSeconds(){
+        return duration / 1000;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration * 1000;
+    }
 }

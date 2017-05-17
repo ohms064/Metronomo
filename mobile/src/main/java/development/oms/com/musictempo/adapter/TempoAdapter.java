@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import development.oms.com.musictempo.R;
 import development.oms.com.musictempo.model.TempoModel;
 import development.oms.com.musictempo.navigation.IFragmentable;
+import development.oms.com.musictempo.sqlite.TempoSQLHelper;
 import development.oms.com.musictempo.utils.ConstantsKeywords;
 import development.oms.com.musictempo.utils.FragmentEnum;
 import development.oms.com.musictempo.viewholder.TempoViewHolder;
@@ -23,11 +24,13 @@ import development.oms.com.musictempo.viewholder.TempoViewHolder;
 public class TempoAdapter extends RecyclerView.Adapter<TempoViewHolder>{
     IFragmentable manager;
     ArrayList<TempoModel> model;
+    TempoSQLHelper db;
     private boolean isDeleting;
 
-    public TempoAdapter(IFragmentable manager, ArrayList<TempoModel> model){
+    public TempoAdapter(IFragmentable manager, ArrayList<TempoModel> model, TempoSQLHelper db){
         this.manager = manager;
         this.model = model;
+        this.db = db;
     }
 
     @Override
@@ -43,6 +46,7 @@ public class TempoAdapter extends RecyclerView.Adapter<TempoViewHolder>{
             public void onClick(View v) {
                 if(isDeleting){
                     int position = holder.getAdapterPosition();
+                    db.remove(model.get(position));
                     model.remove(position);
                     notifyItemRemoved(position);
                     notifyItemRangeChanged(position, getItemCount());

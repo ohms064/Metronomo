@@ -7,6 +7,6 @@ package development.oms.com.musictempo.utils;
 public class ConstantsKeywords {
     public static final String TEMPO_DATA = "Tempo Data";
     public static final String PREFS_KEYWORD = "thirfoundation.tempo.sharedpreferences";
-    public static final int DB_VERSION = 1;
+    public static final int DB_VERSION = 2;
     public static final String DB_NAME = "Tempo";
 }

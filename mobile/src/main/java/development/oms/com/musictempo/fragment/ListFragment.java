@@ -33,7 +33,6 @@ public class ListFragment extends Fragment {
     RecyclerView recyclerView;
     TempoAdapter adapter;
     TempoSQLHelper sqlHelper;
-    public static boolean isDeleting = false;
 
     public ListFragment() {
         // Required empty public constructor
@@ -45,18 +44,29 @@ public class ListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.list_fragment, container, false);
-        sqlHelper = new TempoSQLHelper(getActivity(), ConstantsKeywords.DB_NAME, null, ConstantsKeywords.DB_VERSION);
         recyclerView = (RecyclerView) root.findViewById(R.id.tempo_list_grid);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        ArrayList<TempoModel> model = sqlHelper.getModels();
-        adapter = new TempoAdapter((IFragmentable) getActivity(), model);
-        recyclerView.setAdapter(adapter);
 
         setHasOptionsMenu(true);
 
         return root;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        sqlHelper = TempoSQLHelper.getInstance();
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        ArrayList<TempoModel> model = sqlHelper.getModels();
+        adapter = new TempoAdapter((IFragmentable) getActivity(), model, sqlHelper);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

@@ -13,6 +13,8 @@ import android.view.View;
 
 import development.oms.com.musictempo.R;
 import development.oms.com.musictempo.navigation.IFragmentable;
+import development.oms.com.musictempo.sqlite.TempoSQLHelper;
+import development.oms.com.musictempo.utils.ConstantsKeywords;
 import development.oms.com.musictempo.utils.FragmentEnum;
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, IFragmentable {
@@ -27,12 +29,14 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        TempoSQLHelper helper = TempoSQLHelper.createSingleton(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FragmentManager manager = getSupportFragmentManager();
         manager.addOnBackStackChangedListener(this);
+
 
         if(savedInstanceState != null){
             currentFragmentEnum = (FragmentEnum) savedInstanceState.getSerializable(CURRENT);
